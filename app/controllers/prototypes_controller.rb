@@ -10,6 +10,11 @@ class PrototypesController < ApplicationController
     @prototype.captured_images.build
   end
 
+  def update
+    @prototype = Prototype.save(prototype_params)
+    redirect_to :root, notice: 'Prototype was successfully updated'
+  end
+
   def create
     @prototype = Prototype.new(prototype_params)
     if @prototype.save
