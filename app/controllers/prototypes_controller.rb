@@ -1,5 +1,5 @@
 class PrototypesController < ApplicationController
-  before_action :set_prototype, only: :show
+  before_action :set_prototype, only: [:show, :edit, :update]
 
   def index
     @prototypes = Prototype.all
@@ -10,9 +10,17 @@ class PrototypesController < ApplicationController
     @prototype.captured_images.build
   end
 
+  def edit
+    @captured_images = @prototype.captured_images
+  end
+
   def update
-    @prototype = Prototype.save(prototype_params)
+    @prototype.update(prototype_params) if @prototype.user_id == current_user.id
     redirect_to :root, notice: 'Prototype was successfully updated'
+    return
+    else
+      render action: :edit
+      return
   end
 
   def create
@@ -20,7 +28,7 @@ class PrototypesController < ApplicationController
     if @prototype.save
       redirect_to :root, notice: 'New prototype was successfully created'
     else
-      redirect_to ({ action: new }), alert: 'YNew prototype was unsuccessfully created'
+      redirect_to ({ action: "new" }), alert: 'YNew prototype was unsuccessfully created'
      end
   end
 
