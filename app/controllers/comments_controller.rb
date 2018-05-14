@@ -1,10 +1,11 @@
 class CommentsController < ApplicationController
   def create
-    Comment.create(body:params[:body],prototype_id:params[:prototype_id],user_id:[current_user.id])
+    Comment.create(comment_params)
     redirect_to prototype_path(id:params[:prototype_id])
   end
 
   def edit
+
   end
 
   def update
@@ -15,7 +16,7 @@ class CommentsController < ApplicationController
 
   private
     def comment_params
-
+      params.require(:comment).permit(:body,:prototype_id).merge(user_id: current_user.id)
     end
 
 end
