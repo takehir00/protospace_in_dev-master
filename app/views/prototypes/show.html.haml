@@ -37,3 +37,20 @@
           %a{href: "#", class: "btn btn-default"} iPad
         %li
           %a{href: "#", class: "btn btn-default"} wireframe
+
+  .comments-list
+    %h4 Comments
+
+
+  .comments-form
+  %h4 Write a comment
+
+
+
+  = form_for ([@prototype,@comment]) do |f|
+    = f.text_field :body, placeholder: "Sign in to put your comment"
+
+    = f.submit "COMMENT"
+
+
+

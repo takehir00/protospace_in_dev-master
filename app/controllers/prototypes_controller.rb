@@ -33,6 +33,7 @@ class PrototypesController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
   end
 
   private
