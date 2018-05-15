@@ -1,7 +1,10 @@
 class CommentsController < ApplicationController
   def create
-    Comment.create(comment_params)
-    redirect_to prototype_path(id:params[:prototype_id])
+    @comment=Comment.create(comment_params)
+    respond_to do |format|
+      format.html {redirect_to prototype_path(id:params[:prototype_id])}
+      format.json
+    end
   end
 
   def edit
@@ -16,7 +19,7 @@ class CommentsController < ApplicationController
 
   private
     def comment_params
-      params.require(:comment).permit(:body,:prototype_id).merge(user_id: current_user.id)
+      params.require(:comment).permit(:body).merge(prototype_id:params[:prototype_id],user_id: current_user.id)
     end
 
 end
