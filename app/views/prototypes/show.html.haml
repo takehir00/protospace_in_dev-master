@@ -41,7 +41,10 @@
   .comments-list
     %h4 Comments
     - @comments.each do |comment|
-      = comment.body
+      %h5
+        = comment.body
+      %p
+        = comment.user.name
 
 
   .comments-form
