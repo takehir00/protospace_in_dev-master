@@ -42,9 +42,9 @@
     %h4 Comments
     - @comments.each do |comment|
       %h5
-        = comment.body
-      %p
         = comment.user.name
+      %p
+        = comment.body
 
 
   .comments-form

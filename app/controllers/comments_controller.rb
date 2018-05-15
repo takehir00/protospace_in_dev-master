@@ -8,10 +8,14 @@ class CommentsController < ApplicationController
   end
 
   def edit
-
+    @prototype = Prototype.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def update
+    comment = Comment.find(params[:id])
+    comment.update(comment_params)
+
   end
 
   def destroy
