@@ -15,6 +15,7 @@ class CommentsController < ApplicationController
   def update
     comment = Comment.find(params[:id])
     comment.update(comment_params)
+    redirect_to prototype_path(Prototype.find(params[:id]))
 
   end
 

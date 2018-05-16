@@ -39,10 +39,12 @@
           %a{href: "#", class: "btn btn-default"} wireframe
 
   .comments-list
-    %h4 Comments
+    %h4.comments Comments
     - @comments.each do |comment|
-      %h5
+      %h5.comments-list__username
         = comment.user.name
+      .comments-list__edit
+        edit
       %p
         = comment.body
 
