@@ -38,15 +38,17 @@
         %li
           %a{href: "#", class: "btn btn-default"} wireframe
 
-  .comments-list
+  .comments-list.clearfix
     %h4.comments Comments
     - @comments.each do |comment|
       %h5.comments-list__username
         = comment.user.name
+      %p.comments-list__body
+        = comment.body
       .comments-list__edit
         edit
-      %p
-        = comment.body
+      .comments-list__destroy
+        destroy
 
 
   .comments-form
