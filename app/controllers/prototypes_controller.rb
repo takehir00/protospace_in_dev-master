@@ -11,16 +11,20 @@ class PrototypesController < ApplicationController
   end
 
   def edit
-    @captured_images = @prototype.captured_images
+    @captured_images_main = @prototype.captured_images.where("status='0'")
+    @captured_images_sub = @prototype.captured_images.where("status='1'")
+    @captured_images_new = @prototype.captured_images.build
   end
 
   def update
-    @prototype.update(prototype_params) if @prototype.user_id == current_user.id
-    redirect_to :root, notice: 'Prototype was successfully updated'
-    return
+    if @prototype.user_id == current_user.id
+      @prototype.update(prototype_update_params)
+      redirect_to :root, notice: 'Prototype was successfully updated'
+      return
     else
       render action: :edit
       return
+    end
   end
 
   def create
@@ -48,6 +52,16 @@ class PrototypesController < ApplicationController
       :concept,
       :user_id,
       captured_images_attributes: [:content, :status]
+    )
+  end
+
+  def prototype_update_params
+    params.require(:prototype).permit(
+      :title,
+      :catch_copy,
+      :concept,
+      :user_id,
+      captured_images_attributes: [:content, :status, :id]
     )
   end
 end
