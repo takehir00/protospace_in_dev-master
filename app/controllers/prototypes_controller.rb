@@ -8,17 +8,26 @@ class PrototypesController < ApplicationController
   def new
     @prototype = Prototype.new
     @prototype.captured_images.build
+    @prototype.tags.build
   end
 
   def edit
     @captured_images_main = @prototype.captured_images.where("status='0'")
     @captured_images_sub = @prototype.captured_images.where("status='1'")
     @captured_images_new = @prototype.captured_images.build
+    # 入力用のフォーム作成のため、buildメソッド使用
+    @tags_new = @prototype.tags.build
+    # 同上
+    @tags_existing = @prototype.tags.where.not(id: nil)
+    # tags_new を省くためにwhere.notを使用
   end
 
   def update
+    tags = params[:prototype][:tags].reject(&:empty?)
+    binding.pry
     if @prototype.user_id == current_user.id
       @prototype.update(prototype_update_params)
+      @prototype.save_tags(tags)
       redirect_to :root, notice: 'Prototype was successfully updated'
       return
     else
@@ -28,7 +37,7 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    @prototype = Prototype.new(prototype_params)
+    @prototype = Prototype.new(prototype_create_params)
     if @prototype.save
       redirect_to :root, notice: 'New prototype was successfully created'
     else
@@ -45,13 +54,14 @@ class PrototypesController < ApplicationController
     @prototype = Prototype.find(params[:id])
   end
 
-  def prototype_params
+  def prototype_create_params
     params.require(:prototype).permit(
       :title,
       :catch_copy,
       :concept,
       :user_id,
-      captured_images_attributes: [:content, :status]
+      captured_images_attributes: [:content, :status],
+      tags_attributes: [:name]
     )
   end
 

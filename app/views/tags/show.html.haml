@@ -10,11 +10,19 @@
           = link_to "Popular", "#"
         %li.btn-default.btn-popular
           = link_to "Newest", "#"
-      = link_to "VIEW TAGS", "/tags", class: "btn btn-default col-lg-1"
+      = link_to "VIEW TAGS", "#", class: "btn btn-default col-lg-1"
+
+.container
+  .row
+    .col-sm-12.proto-content
+      .thumbnail
+        %button.btn.btn-tag.tag-name{name: "button", type: "submit"}#{@tag.name}
+        .tag-meta
+          %a.label.label-default.tag-list-number.tag-project{ href: "/tags/#{@tag.id}"} #{@tag.prototypes.size} Projects
 
 .container.proto-list
   .row
-    = render partial: 'prototypes/prototype', collection: @prototypes
+    = render partial: 'prototypes/prototype', collection: @tag.prototypes
 
 .text-center
   %ul.pagination

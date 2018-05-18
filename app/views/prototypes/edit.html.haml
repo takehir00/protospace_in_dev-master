@@ -12,8 +12,8 @@
           %h4 Main Thumbnail
           .cover-image-upload#main_image_uploader
             = f.fields_for :captured_images, @captured_images_main do |image|
-              %img
-              = image.file_field :content, required: true
+              = image_tag(@prototype.set_main_thumbnail.large, alt: "main_photo", class: 'img-responsive img-size-fix', style: "margin: 0 auto;")
+              = image.file_field :content
               = image.hidden_field :status, value: "main"
         .col-md-12
           %h4 Sub Thumbnails
@@ -22,7 +22,7 @@
               %li.list-group-item.col-md-4
                 .image-upload
                   = f.fields_for :captured_images, sub_image do |image|
-                    %img
+                    = image_tag(sub_image.content, alt: "main_photo", class: 'img-responsive img-size-fix',style: "margin: 0 auto;,height: 200px;")
                     = image.file_field :content
                     = image.hidden_field :status, value: "sub"
             - (3 - @captured_images_sub.length).times do |i|
@@ -39,5 +39,14 @@
         .col-md-12
           %h4 Concept
           = f.text_area :concept, require: true
+        .col-md-12
+          %h4 Tag List
+          .row
+            - 3.times do |i|
+              .col-md-3
+                -if i == 0
+                  = f.text_field :tags, name:"prototype[tags][]", require: true, placeholder: "ex)Web", value:""
+                -else
+                  = f.text_field :tags, name:"prototype[tags][]", placeholder: "ex)Web", value:""
       .row.text-center.proto-btn
         = f.submit "UPDATE", id: "button", class: "btn btn-lg btn-primary btn-block"
