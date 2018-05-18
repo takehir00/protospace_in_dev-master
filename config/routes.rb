@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root 'prototypes#index'
   resources :prototypes
   resources :users, only: [:show, :edit, :update]
+  resources :tags, only: [:index, :show, :update, :destroy]
 end

@@ -1,0 +1,8 @@
+.col-sm-4.col-md-3.proto-content
+  .thumbnail
+    %a{href: "/tags/#{tag.id}"}
+      %button.btn.btn-tag.tag-name{name: "button", type: "submit"}
+        = tag.name
+    .tag-meta
+      %a.label.label-default.tag-list-number.tag-project{href: "/tags/#{tag.id}"} #{tag.prototypes.size} Projects
+
