@@ -24,7 +24,6 @@ class PrototypesController < ApplicationController
 
   def update
     tags = params[:prototype][:tags].reject(&:empty?)
-    binding.pry
     if @prototype.user_id == current_user.id
       @prototype.update(prototype_update_params)
       @prototype.save_tags(tags)
@@ -37,8 +36,10 @@ class PrototypesController < ApplicationController
   end
 
   def create
+    tags = params[:prototype][:tags].reject(&:empty?)
     @prototype = Prototype.new(prototype_create_params)
     if @prototype.save
+      @prototype.save_tags(tags)
       redirect_to :root, notice: 'New prototype was successfully created'
     else
       redirect_to ({ action: "new" }), alert: 'YNew prototype was unsuccessfully created'
@@ -66,8 +67,7 @@ class PrototypesController < ApplicationController
       :catch_copy,
       :concept,
       :user_id,
-      captured_images_attributes: [:content, :status],
-      tags_attributes: [:name]
+      captured_images_attributes: [:content, :status]
     )
   end
 
