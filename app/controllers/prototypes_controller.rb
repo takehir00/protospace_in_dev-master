@@ -36,13 +36,14 @@ class PrototypesController < ApplicationController
   end
 
   def create
+    binding.pry
     tags = params[:prototype][:tags].reject(&:empty?)
     @prototype = Prototype.new(prototype_create_params)
     if @prototype.save
       @prototype.save_tags(tags)
       redirect_to :root, notice: 'New prototype was successfully created'
     else
-      redirect_to ({ action: "new" }), alert: 'YNew prototype was unsuccessfully created'
+      redirect_to ({ action: "new" }), alert: 'New prototype was unsuccessfully created'
      end
   end
 
@@ -51,8 +52,12 @@ class PrototypesController < ApplicationController
 
   def destroy
     prototype = Prototype.find(params[:id])
-    prototype.destroy if prototype.user_id == current_user.id
-    redirect_to :root, notice: 'Prototype was successfully deleted'
+    if prototype.user_id == current_user.id
+      prototype.destroy
+      redirect_to :root, notice: 'Prototype was successfully deleted'
+    else
+      render action: :edit
+    end
   end
 
   private
