@@ -46,10 +46,10 @@
       %p.comments-list__body
         = comment.body
       .comments-list__edit
-        edit
+        = link_to "編集", edit_prototype_comment_path()
         //mizuiro
       .comments-list__destroy
-        destroy
+        = link_to "削除", "/prototypes/:prototype_id/comments/:id", method: :delete
         //mizuiro
 
   .comments-form
