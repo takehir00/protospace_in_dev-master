@@ -1,11 +1,19 @@
 $(function(){
   function buildHTML(comment){
-    var html =`<p>
-                comment.body
+    var html =`<div class="comments-contents">
+                <h5 class="comments-list__username">
+                  ${comment.user_name}
+                </h5>
+                <p class="comments-list__body">
+                  ${comment.body}
                 </p>
-                <p>
-                comment.user_name
-                </p>`
+                <div class="comments-list__edit">
+                  <a href="/prototypes/${comment.prototype_id}/comments/${comment.id}/edit">EDIT</a>
+                </div>
+                <div class="comments-list__destroy">
+                  <a rel="nofollow" data-method="delete" href="/prototypes/${comment.prototype_id}/comments/${comment.id}">DESTROY</a>
+                </div>
+              </div>`
     return html;
   }
   $('#new_comment').on('submit', function(e){
@@ -16,7 +24,7 @@ $(function(){
       url: url,
       type: "POST",
       data: formData,
-      adataType: 'json',
+      dataType: 'json',
       processData: false,
       contentType: false
     })

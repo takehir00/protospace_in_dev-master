@@ -8,18 +8,20 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @prototype = Prototype.find(params[:id])
+    @prototype = Prototype.find(params[:prototype_id])
     @comment = Comment.find(params[:id])
   end
 
   def update
     comment = Comment.find(params[:id])
     comment.update(comment_params)
-    redirect_to prototype_path(Prototype.find(params[:id]))
-
+    redirect_to prototype_path(id: params[:prototype_id])
   end
 
   def destroy
+    comment = Comment.find(params[:id])
+    comment.delete
+    redirect_to prototype_path(id: params[:prototype_id])
   end
 
   private
