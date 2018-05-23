@@ -41,21 +41,18 @@
   .comments-list.clearfix
     %h4.comments Comments
     - @comments.each do |comment|
-      %h5.comments-list__username
-        = comment.user.name
-      %p.comments-list__body
-        = comment.body
-      .comments-list__edit
-        = link_to "編集", edit_prototype_comment_path()
-        //mizuiro
-      .comments-list__destroy
-        = link_to "削除", "/prototypes/:prototype_id/comments/:id", method: :delete
-        //mizuiro
+      .comments-contents
+        %h5.comments-list__username
+          = comment.user.name
+        %p.comments-list__body
+          = comment.body
+        .comments-list__edit
+          = link_to "EDIT", edit_prototype_comment_path(@prototype,comment)
+        .comments-list__destroy
+          = link_to "DESTROY", "/prototypes/#{@prototype.id}/comments/#{comment.id}", method: :delete
 
   .comments-form
   %h4 Write a comment
-
-
 
   = form_for ([@prototype,@comment]) do |f|
     = f.text_field :body, placeholder: "Sign in to put your comment"
