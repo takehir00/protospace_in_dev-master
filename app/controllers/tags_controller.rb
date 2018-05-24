@@ -11,6 +11,11 @@ class TagsController < ApplicationController
   end
 
   def destroy
+    @tag = Tag.find(params[:id])
+    @prototype = Prototype.find(params[:prototype_id])
+    if @tag.destroy
+      redirect_to prototype_path(@prototype), notice: 'Tag was successfully deleted'
+    end
   end
 
 end
