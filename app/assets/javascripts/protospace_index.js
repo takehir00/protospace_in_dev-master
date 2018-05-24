@@ -1,0 +1,88 @@
+$(document).on('turbolinks:load', function(){
+
+  var prototype_zone = $(".proto-zone")
+
+  function buildHTML(prototype){
+    var tag_html = ""
+
+    prototype.tags.forEach(function(tag){
+      tag_html +=
+      `<li>
+          <a class="btn btn-default" href="/tag/${tag.id}">
+          ${tag.name}</a>
+        </li>`
+    })
+
+    var html =
+    `<div class="col-sm-4 col-md-3 proto-content">
+        <div class="thumbnail">
+          <a href="/prototypes/${prototype.id}">
+            <img src="${prototype.image}"></a>
+          <div class="caption">
+            <h3>
+            ${prototype.title}
+            </h3>
+            <div class="proto-meta">
+              <div class="proto-user">
+                <a href="/user/${prototype.user_id}">
+                ${prototype.user_name}</a>
+              </div>
+              <div class="proto-posted">
+              ${prototype.created_at}
+              </div>
+            </div>
+            <ul class="proto-tag-list list-inline">
+              ${tag_html}
+            </ul>
+          </div>
+        </div>
+    </div>`
+
+    return html;
+  }
+
+  $("#btn-popular").on("click", function(e){
+    e.preventDefault();
+    $.ajax({
+      url: "/prototypes",
+      type: "GET",
+      dataType: 'json'
+    })
+    .done(function(prototypes){
+      console.log(prototypes)
+      prototypes.sort(function(a,b){
+        return (a.likes_count > b.likes_count ? 1 : -1)
+      })
+      prototype_zone.empty();
+      prototypes.forEach(function(prototype){
+        prototype_zone.append(buildHTML(prototype));
+      })
+    })
+    .fail(function(){
+      alert('error');
+    })
+  })
+
+  $("#btn-newest").on("click", function(e){
+    e.preventDefault();
+    $.ajax({
+      url: "/prototypes",
+      type: "GET",
+      dataType: 'json'
+    })
+    .done(function(prototypes){
+      console.log(prototypes)
+      prototypes.sort(function(a,b){
+        return (a.created_at > b.created_at ? 1 : -1)
+      })
+      prototype_zone.empty();
+      prototypes.forEach(function(prototype){
+        prototype_zone.append(buildHTML(prototype));
+      })
+    })
+    .fail(function(){
+      alert('error');
+    })
+  })
+})
+

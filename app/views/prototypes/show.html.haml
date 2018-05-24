@@ -13,7 +13,7 @@
             = link_to "#{@prototype.user.name}", user_path(@prototype.user)
             .degree
               = @prototype.user.position
-    -if current_user.id == @prototype.user.id
+    -if user_signed_in? && current_user.id == @prototype.user.id
       .col-md-6
         .btn.btn-default.btn-edit
           = link_to "edit", edit_prototype_path(@prototype)
