@@ -2,6 +2,7 @@ class Prototype < ActiveRecord::Base
   belongs_to :user
   has_many :prototype_tags, dependent: :destroy
   has_many :captured_images, dependent: :destroy
+  has_many :likes, dependent: :destroy
   has_many :tags, through: :prototype_tags
 
   accepts_nested_attributes_for :captured_images, reject_if: :reject_sub_images
@@ -29,6 +30,10 @@ class Prototype < ActiveRecord::Base
     created_at.strftime('%b %d %a')
   end
 
+  def like_user(user_id)
+   likes.find_by(user_id: user_id)
+  end
+  
   def save_tags(tags)
     current_tags = self.tags.pluck(:name) unless self.tags.nil?
     old_tags = current_tags - tags
@@ -42,5 +47,6 @@ class Prototype < ActiveRecord::Base
       prototype_tag = Tag.find_or_create_by(name:new_name)
       self.tags << prototype_tag
     end
+
   end
 end
