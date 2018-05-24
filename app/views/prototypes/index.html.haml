@@ -14,7 +14,6 @@
 
 .container.proto-list
   .row.proto-zone
-    = render partial: 'prototypes/prototype', collection: @prototypes
-
+    = render partial: 'prototype', collection: @prototypes
 .text-center
   = paginate(@prototypes)
