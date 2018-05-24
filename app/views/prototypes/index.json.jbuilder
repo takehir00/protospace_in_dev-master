@@ -6,4 +6,5 @@ json.array! @prototypes do |prototype|
   json.user_name    prototype.user.name
   json.user_id      prototype.user_id
   json.tags         prototype.tags
+  json.likes_count  prototype.likes_count
 end

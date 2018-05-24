@@ -13,6 +13,18 @@ $(document).on('turbolinks:load', function(){
         </li>`
     })
 
+    if (prototype.likes_count != null ){
+      like_html =
+      `<div class="proto-likes">
+        <p>${prototype.likes_count} likes</p>
+      </div>`
+    } else {
+      like_html =
+      `<div class="proto-likes">
+        <p>0 likes</p>
+      </div>`
+    }
+
     var html =
     `<div class="col-sm-4 col-md-3 proto-content">
         <div class="thumbnail">
@@ -34,6 +46,7 @@ $(document).on('turbolinks:load', function(){
             <ul class="proto-tag-list list-inline">
               ${tag_html}
             </ul>
+            ${like_html}
           </div>
         </div>
     </div>`
@@ -51,8 +64,9 @@ $(document).on('turbolinks:load', function(){
     .done(function(prototypes){
       console.log(prototypes)
       prototypes.sort(function(a,b){
-        return (a.likes_count > b.likes_count ? 1 : -1)
+        return (a.likes_count < b.likes_count ? 1 : -1)
       })
+      console.log(prototypes)
       prototype_zone.empty();
       prototypes.forEach(function(prototype){
         prototype_zone.append(buildHTML(prototype));
@@ -73,7 +87,7 @@ $(document).on('turbolinks:load', function(){
     .done(function(prototypes){
       console.log(prototypes)
       prototypes.sort(function(a,b){
-        return (a.created_at > b.created_at ? 1 : -1)
+        return (a.created_at < b.created_at ? 1 : -1)
       })
       prototype_zone.empty();
       prototypes.forEach(function(prototype){
