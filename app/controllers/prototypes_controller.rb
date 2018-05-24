@@ -1,8 +1,13 @@
 class PrototypesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_prototype, only: [:show, :edit, :update]
 
   def index
-    @prototypes = Prototype.order("created_at DESC").page(params[:page]).per(4)
+    @prototypes = Prototype.order("created_at DESC").page(params[:page]).per(8)
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def new
@@ -36,7 +41,6 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    binding.pry
     tags = params[:prototype][:tags].reject(&:empty?)
     @prototype = Prototype.new(prototype_create_params)
     if @prototype.save
