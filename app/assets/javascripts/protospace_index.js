@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function(){
     prototype.tags.forEach(function(tag){
       tag_html +=
       `<li>
-          <a class="btn btn-default" href="/tag/${tag.id}">
+          <a class="btn btn-default" href="/tags/${tag.id}">
           ${tag.name}</a>
         </li>`
     })
