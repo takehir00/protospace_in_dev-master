@@ -96,14 +96,11 @@ ActiveRecord::Schema.define(version: 20180518084258) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "captured_images", "prototypes"
-
   add_foreign_key "comments", "prototypes"
   add_foreign_key "comments", "users"
-
   add_foreign_key "likes", "prototypes"
   add_foreign_key "likes", "users"
   add_foreign_key "prototype_tags", "prototypes"
   add_foreign_key "prototype_tags", "tags"
-
   add_foreign_key "prototypes", "users"
 end
