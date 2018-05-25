@@ -625,6 +625,10 @@ body {
 }
 
 /*--prototype_comment----------------------------------*/
+#comment-zone {
+  padding-left: 0;
+}
+
 .comments-list__username{
 
 }
@@ -643,11 +647,6 @@ body {
 .comments-list__destroy{
   color:#3399FF;
 }
-
-
-
-
-
 
 /* -- flash messages ------------------------------------ */
 .alert {

@@ -16,8 +16,7 @@ capybara-*.html
 /public/system
 /coverage/
 /spec/tmp
-/public/uploads/captured_image
-/public/uploads/tmp
+/public/uploads
 **.orig
 rerun.txt
 pickle-email-*.html
