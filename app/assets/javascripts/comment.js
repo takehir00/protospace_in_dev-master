@@ -1,4 +1,4 @@
-$(function(){
+$(document).on('turbolinks:load', function(){
   function buildHTML(comment){
     var html =`<div class="comments-contents">
                 <h5 class="comments-list__username">
