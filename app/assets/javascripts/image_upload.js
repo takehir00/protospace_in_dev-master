@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$(document).on('turbolinks:load', function(){
   $('.col-md-12').on('change','input[type="file"]', function(e){
     var file = e.target.files[0],
           reader = new FileReader();
