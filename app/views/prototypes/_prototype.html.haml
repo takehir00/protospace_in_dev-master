@@ -9,3 +9,12 @@
           = link_to prototype.user.name, user_path(prototype.user)
         .proto-posted
           = prototype.posted_date
+      %ul.proto-tag-list.list-inline
+        -prototype.tags.each do |tag|
+          %li
+            %a.btn.btn-default{ href:"/tags/#{tag.id}"}#{tag.name}
+      .proto-likes
+        -if prototype.likes.present?
+          %p #{prototype.likes_count} likes
+        -else
+          %p 0 likes

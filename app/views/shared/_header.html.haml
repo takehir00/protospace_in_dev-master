@@ -10,7 +10,7 @@
       - if user_signed_in?
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown
-            = link_to "#", class: 'dropdown-toggle', role: 'button', 'aria-expanded' =>  'false', 'data-toggle' => 'dropdown' do
+            = link_to "#", id:'dropdown-toggle', class: 'dropdown-toggle', role: 'button', 'aria-expanded' =>  'false', 'data-toggle' => 'dropdown' do
               #{current_user.name}
               %span.caret
             %ul.dropdown-menu{role: "menu"}
