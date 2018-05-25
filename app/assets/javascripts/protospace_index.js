@@ -62,11 +62,9 @@ $(document).on('turbolinks:load', function(){
       dataType: 'json'
     })
     .done(function(prototypes){
-      console.log(prototypes)
       prototypes.sort(function(a,b){
         return (a.likes_count < b.likes_count ? 1 : -1)
       })
-      console.log(prototypes)
       prototype_zone.empty();
       prototypes.forEach(function(prototype){
         prototype_zone.append(buildHTML(prototype));
