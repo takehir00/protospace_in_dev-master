@@ -2,6 +2,7 @@ class Prototype < ActiveRecord::Base
   belongs_to :user
   has_many :prototype_tags, dependent: :destroy
   has_many :captured_images, dependent: :destroy
+  has_many :comments
   has_many :likes, dependent: :destroy
   has_many :tags, through: :prototype_tags
 
